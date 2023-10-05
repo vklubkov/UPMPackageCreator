@@ -55,7 +55,7 @@ namespace UPMPackageCreator {
             }
 
             // A ScriptableObject without an associated asset instantiates in
-            // current scene. When the scene changes it becomes null.
+            // current scene. When the scene changes - object becomes null.
             if (_serializedObject.targetObject == null) {
                 CleanupReorderableList();
                 CreateReorderableList(_useGuids, assemblyDefinitions);

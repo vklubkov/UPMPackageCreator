@@ -141,10 +141,10 @@ namespace UPMPackageCreator {
                     if (packageFolderPath == null)
                         return false;
 
-                    // UPM_HAS_RESOLVE is set through Version Defines feature of the Assembly Definition
-                    // for Unity 2020.1.0f1, where Client.Resolve() public method was introduced and above.
-                    // But the Version Defines in Unity 2020 are only fully supported starting with Unity
-                    // 2020.2.4f1. Before that (i.e. 2020.1.0f1 to 2020.2.3f1) UPM_HAS_RESOLVE macro is not set.
+                    // Note: UPM_HAS_RESOLVE is set through Version Defines feature of the Assembly Definition for
+                    // Unity 2020.1.0f1, where Client.Resolve() public method was introduced and above. But the Version
+                    // Defines in Unity 2020 are only fully supported starting with Unity 2020.2.4f1. Before that
+                    // (i.e. 2020.1.0f1 to 2020.2.3f1) UPM_HAS_RESOLVE macro is not set and Refresh() is called still.
 #if UPM_HAS_RESOLVE
                     PackageManager.Resolve();
 #else

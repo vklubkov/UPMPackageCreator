@@ -10,7 +10,7 @@ namespace UPMPackageCreator {
                 var assetsPath = Assets;
                 var dirInfo = new DirectoryInfo(assetsPath);
                 // ReSharper disable once PossibleNullReferenceException
-                // because it is better to throw early in Editor
+                // Should not throw.
                 var parent = dirInfo.Parent.FullName;
                 return Path.Combine(parent, PackagesFolderName);
             }
