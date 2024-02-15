@@ -39,7 +39,7 @@ namespace UPMPackageCreator {
             public const string Label = "Main Namespace";
             public const string Tooltip = "The main namespace of the package. A folder with this name is " +
                                           "created as well. In case the Root Namespace of an assembly is set, " +
-                                          "then the order is RootRamespace.MainNamespace";
+                                          "then the order is RootNamespace.MainNamespace";
         }
 
         public static class License {
