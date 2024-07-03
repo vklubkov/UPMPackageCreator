@@ -156,12 +156,21 @@ namespace UPMPackageCreator {
 
             index = EditorGUILayout.Popup(_visibilityInEditorGuiContent, index, _visibilityInEditorItems);
 
-            packageData.HideInEditor = index switch {
-                _defaultVisibilityIndex => null,
-                _alwaysHiddenIndex => false,
-                _alwaysVisibleIndex => true,
-                _ => packageData.HideInEditor
-            };
+            switch (index)
+            {
+                case _defaultVisibilityIndex:
+                    packageData.HideInEditor = null;
+                    break;
+                case _alwaysHiddenIndex:
+                    packageData.HideInEditor = false;
+                    break;
+                case _alwaysVisibleIndex:
+                    packageData.HideInEditor = true;
+                    break;
+                default:
+                    packageData.HideInEditor = packageData.HideInEditor;
+                    break;
+            }
         }
 
         private void DrawSamples() => _samplesList.OnGui();

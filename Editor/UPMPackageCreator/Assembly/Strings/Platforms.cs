@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 namespace UPMPackageCreator {
         public static class Platforms {
+            public const string Editor = "Editor";
+
             public static class All {
                 // NamedBuildTarget struct is different from what we see in Assembly Definition Inspector
                 // RuntimePlatform enum is different from what we see in Assembly Definition Inspector
@@ -10,7 +12,7 @@ namespace UPMPackageCreator {
                 // So here are custom lists of Platforms that mimic the Assembly Definition Inspector.
                 public static readonly IReadOnlyList<string> Keys = new List<string> {
                     "Android",
-                    "Editor",
+                    Editor,
                     "EmbeddedLinux",
                     "GameCoreScarlett",
                     "GameCoreXboxOne",

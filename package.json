@@ -4,12 +4,12 @@
   "displayName": "UPM Package Creator",
   "description": "Simplifies creation of UPM packages",
   "unity": "2019.1",
-  "unityRelease": "0f1",
+  "unityRelease": "0f2",
   "keywords": [
     "UPM",
     "Package",
     "Creator",
-	"Create"
+    "Create"
   ],
   "license": "MIT",
   "licensesUrl": "https://github.com/marked-one/UpmPackageCreator/blob/main/LICENSE.md",
@@ -17,7 +17,7 @@
   "documentationUrl": "https://github.com/marked-one/UpmPackageCreator",
   "author": {
     "name": "Vladimir Klubkov",
-	"url": "https://github.com/marked-one"
+    "url": "https://github.com/marked-one"
   },
   "dependencies": {
     "com.unity.nuget.newtonsoft-json": "3.2.1"

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -11,7 +12,9 @@ namespace UPMPackageCreator {
         [SerializeField] private DependenciesData _dependenciesData = new DependenciesData();
         [SerializeField] private AuthorData _authorData = new AuthorData();
         [SerializeField] private AssemblyData _runtimeAssemblyData = new AssemblyData();
-        [SerializeField] private AssemblyData _editorAssemblyData = new AssemblyData();
+
+        [SerializeField] private AssemblyData _editorAssemblyData = new AssemblyData()
+            { IncludePlatforms = new List<string>() { Platforms.Editor } };
 
         // Tabs UI
         [SerializeField] private RequiredTab _requiredTab = new RequiredTab();
