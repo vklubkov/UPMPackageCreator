@@ -119,8 +119,7 @@ namespace UPMPackageCreator {
 
                 using (new DisabledGroup(!canSave)) {
                     if (GUILayout.Button(Button.Create.Label)) {
-                        if (Save())
-                            Close();
+                        Save();
                     }
                 }
 
@@ -131,57 +130,65 @@ namespace UPMPackageCreator {
             GUILayout.Space(30);
         }
 
-        private bool Save() {
-            var packageSave = new PackageSave(
-                _packageData, _dependenciesData, _runtimeAssemblyData, _editorAssemblyData, _authorData);
+        private void Save() {
+            try {
+                var packageSave = new PackageSave(
+                    _packageData, _dependenciesData, _runtimeAssemblyData, _editorAssemblyData, _authorData);
 
-            switch (_packageType) {
-                case PackageType.Embedded: {
-                    var packageFolderPath = packageSave.SavePackageAtPath(PackagePaths.Packages);
-                    if (packageFolderPath == null)
-                        return false;
+                switch (_packageType)
+                {
+                    case PackageType.Embedded:
+                    {
+                        var packageFolderPath = packageSave.SavePackageAtPath(PackagePaths.Packages);
+                        if (packageFolderPath == null)
+                            return;
 
-                    // Note: UPM_HAS_RESOLVE is set through Version Defines feature of the Assembly Definition for
-                    // Unity 2020.1.0f1, where Client.Resolve() public method was introduced and above. But the Version
-                    // Defines in Unity 2020 are only fully supported starting with Unity 2020.2.4f1. Before that
-                    // (i.e. 2020.1.0f1 to 2020.2.3f1) UPM_HAS_RESOLVE macro is not set and Refresh() is called still.
+                        // Note: UPM_HAS_RESOLVE is set through Version Defines feature of the Assembly Definition for
+                        // Unity 2020.1.0f1, where Client.Resolve() public method was introduced and above. But the Version
+                        // Defines in Unity 2020 are only fully supported starting with Unity 2020.2.4f1. Before that
+                        // (i.e. 2020.1.0f1 to 2020.2.3f1) UPM_HAS_RESOLVE macro is not set and Refresh() is called still.
 #if UPM_HAS_RESOLVE
-                    PackageManager.Resolve();
+                        PackageManager.Resolve();
 #else
-                    AssetDatabase.Refresh();
+                        AssetDatabase.Refresh();
 #endif
-                    break;
-                }
-                case PackageType.Local: {
-                    var path = EditorUtility.OpenFolderPanel(Window.Dialog.SelectFolder.Title, PackagePaths.Assets, null);
-                    if (string.IsNullOrEmpty(path))
-                        return false;
+                        break;
+                    }
+                    case PackageType.Local:
+                    {
+                        var path = EditorUtility.OpenFolderPanel(Window.Dialog.SelectFolder.Title, PackagePaths.Assets,
+                            null);
+                        if (string.IsNullOrEmpty(path))
+                            return;
 
-                    var packageFolderPath = packageSave.SavePackageAtPath(path);
-                    if (packageFolderPath == null)
-                        return false;
+                        var packageFolderPath = packageSave.SavePackageAtPath(path);
+                        if (packageFolderPath == null)
+                            return;
 
-                    var addRequest =
-                        PackageManager.Add(PackagePaths.PackageManagerLocalPackagePathPrefix + packageFolderPath);
-                    while (!addRequest.IsCompleted) { }
+                        var addRequest =
+                            PackageManager.Add(PackagePaths.PackageManagerLocalPackagePathPrefix + packageFolderPath);
+                        while (!addRequest.IsCompleted) { }
 
-                    if (addRequest.Status == StatusCode.Failure)
-                        throw new InvalidOperationException(
-                            $"Failed to add the local package at path {packageFolderPath} to PackageManager");
+                        if (addRequest.Status == StatusCode.Failure)
+                            throw new InvalidOperationException(
+                                $"Failed to add the local package at path {packageFolderPath} to PackageManager");
 
-                    break;
-                }
-                case PackageType.InAssetsFolder: {
-                    var packageFolderPath = packageSave.SavePackageAtPath(PackagePaths.Assets);
-                    if (packageFolderPath == null)
-                        return false;
+                        break;
+                    }
+                    case PackageType.InAssetsFolder:
+                    {
+                        var packageFolderPath = packageSave.SavePackageAtPath(PackagePaths.Assets);
+                        if (packageFolderPath == null)
+                            return;
 
-                    AssetDatabase.Refresh();
-                    break;
+                        AssetDatabase.Refresh();
+                        break;
+                    }
                 }
             }
-
-            return true;
+            catch (Exception e) {
+                Debug.LogException(e);
+            }
         }
 
         private void OnDisable() {
