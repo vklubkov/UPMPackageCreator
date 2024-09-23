@@ -83,7 +83,7 @@ namespace UPMPackageCreator {
 
             var dependencies = new JObject();
             foreach (var dependency in dependenciesData.Dependencies)
-                dependencies.Add(dependency.First, dependency.Second);
+                dependencies.Add(dependency.First, dependency.Second ?? string.Empty);
 
             parent.Add(PackageJsonKeys.Dependencies, dependencies);
         }

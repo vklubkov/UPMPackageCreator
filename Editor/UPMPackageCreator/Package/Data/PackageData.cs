@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace UPMPackageCreator {
@@ -23,6 +24,7 @@ namespace UPMPackageCreator {
 
         public bool IsValid => !string.IsNullOrEmpty(DirectoryName) &&
                                !string.IsNullOrEmpty(PackageId) &&
-                               !string.IsNullOrEmpty(Version);
+                               !string.IsNullOrEmpty(Version) &&
+                               Keywords.All(item => !string.IsNullOrEmpty(item));
     }
 }
