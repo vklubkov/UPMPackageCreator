@@ -1,0 +1,22 @@
+{
+    "name": "PackageCreator",
+    "rootNamespace": "",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "Unity",
+            "expression": "2020.1.0f1",
+            "define": "UPM_HAS_RESOLVE"
+        }
+    ],
+    "noEngineReferences": false
+}
